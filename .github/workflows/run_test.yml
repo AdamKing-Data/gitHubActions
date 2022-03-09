@@ -14,9 +14,18 @@ jobs:
 
       - name: setup docker
         run: |
+<<<<<<< HEAD
           docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=$env:SAPASSWORD" -p 1433:1433 --name sql1 -h sql1 -d mcr.microsoft.com/mssql/server:2019-latest
           Start-Sleep 90
 
       - name: run tests
         run: |
           sqlcmd -S localhost -U sa -P $env:SAPASSWORD -Q "SELECT 1 as one"
+=======
+          docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=123456" -p 1433:1433 --name sql1 -h sql1 -d mcr.microsoft.com/mssql/server:2019-latest
+          Start-Sleep 60
+
+      - name: run tests
+        run: |
+          sqlcmd -S localhost -U sa -P 123456 -Q "SELECT 1"
+>>>>>>> a15b0f9c67cf7af2b7fd9fbc6611c3189f6126d9
