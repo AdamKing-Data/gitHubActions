@@ -1,0 +1,24 @@
+name: Run Tests
+on: [push]
+defaults:
+  run:
+    shell: pwsh
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    env:
+      SAPASSWORD: ${{secrets.SAPASSWORD}}
+    
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: setup docker
+        run: |
+          docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=$env:SAPASSWORD" -p 1433:1433 --name sql1 -h sql1 -d mcr.microsoft.com/mssql/server:2019-latest
+          
+      - name: wait while SQL server initialises
+        run: Start-Sleep 90
+
+      - name: run tests
+        run: |
+          sqlcmd -S localhost -U sa -P $env:SAPASSWORD -Q "SELECT 1 as one"
