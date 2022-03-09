@@ -15,7 +15,9 @@ jobs:
       - name: setup docker
         run: |
           docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=$env:SAPASSWORD" -p 1433:1433 --name sql1 -h sql1 -d mcr.microsoft.com/mssql/server:2019-latest
-          Start-Sleep 90
+          
+      - name: wait while SQL server initialises
+        run: Start-Sleep 90
 
       - name: run tests
         run: |
