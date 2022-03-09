@@ -19,4 +19,4 @@ jobs:
 
       - name: run tests
         run: |
-          sqlcmd -S localhost -U sa -p 123456 -Q "SELECT 'TEST WAS SUCCESSFULL'"
+          sqlcmd -S localhost -U sa -P 123456 -Q "SELECT 'TEST WAS SUCCESSFULL'"
