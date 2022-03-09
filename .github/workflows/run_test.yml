@@ -11,3 +11,11 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
+
+      - name: setup docker
+        run: |
+          sudo  docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=password" -p 1433:1433 --name sql1 -h sql1 -d mcr.microsoft.com/mssql/server:2019-latest
+
+      - name: run tests
+        run: |
+          sqlcmd -S localhost -U sa -p password -Q "SELECT 'TEST WAS SUCCESSFULL'"
